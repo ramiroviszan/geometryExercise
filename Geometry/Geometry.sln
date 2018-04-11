@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryLogic", "GeometryLogic\GeometryLogic.csproj", "{CCAA80CD-B566-46A9-AC3F-54946E225A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryLogic.Test", "GeometryLogic.Test\GeometryLogic.Test.csproj", "{84F09F4B-F4BC-4395-92C9-C4FB17A58583}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCAA80CD-B566-46A9-AC3F-54946E225A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAA80CD-B566-46A9-AC3F-54946E225A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAA80CD-B566-46A9-AC3F-54946E225A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAA80CD-B566-46A9-AC3F-54946E225A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F09F4B-F4BC-4395-92C9-C4FB17A58583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F09F4B-F4BC-4395-92C9-C4FB17A58583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F09F4B-F4BC-4395-92C9-C4FB17A58583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F09F4B-F4BC-4395-92C9-C4FB17A58583}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
