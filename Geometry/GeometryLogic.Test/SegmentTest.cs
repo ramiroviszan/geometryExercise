@@ -49,7 +49,7 @@ namespace GeometryLogic.Test
         {
             Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
             Segment newSegment = new Segment(new Vector(0, -5), new Vector(0, 5));
-            Assert.IsTrue(newSegment.DoesIntersect(oldSegment));
+            Assert.IsTrue(newSegment.Intersects(oldSegment));
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace GeometryLogic.Test
         {
             Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
             Segment newSegment = new Segment(new Vector(6, -5), new Vector(6, 5));
-            Assert.IsTrue(!newSegment.DoesIntersect(oldSegment));
+            Assert.IsTrue(!newSegment.Intersects(oldSegment));
         }
 
 
@@ -70,11 +70,36 @@ namespace GeometryLogic.Test
         }
 
         [TestMethod]
+        public void GetSegmentsIntersectionInTShapeTest()
+        {
+            Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
+            Segment newSegment = new Segment(new Vector(5, -5), new Vector(5, 5));
+            Assert.AreEqual(new Vector(5, 0), newSegment.GetIntersection(oldSegment));
+        }
+
+        [TestMethod]
+        public void GetSegmentsIntersectionInCornerShapeTest()
+        {
+            Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
+            Segment newSegment = new Segment(new Vector(5, 0), new Vector(5, 5));
+            Assert.AreEqual(new Vector(5, 0), newSegment.GetIntersection(oldSegment));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(SegmentsDoNotIntersectException))]
         public void FailedSegmentsIntersectionTest()
         {
             Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
             Segment newSegment = new Segment(new Vector(6, -5), new Vector(6, 5));
+            newSegment.GetIntersection(oldSegment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SegmentsDoNotIntersectException))]
+        public void CollinearSegmentsIntersectionTest()
+        {
+            Segment oldSegment = new Segment(new Vector(-5, 0), new Vector(5, 0));
+            Segment newSegment = new Segment(new Vector(-5, 1), new Vector(6, 1));
             newSegment.GetIntersection(oldSegment);
         }
     }

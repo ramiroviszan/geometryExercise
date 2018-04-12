@@ -19,12 +19,12 @@ namespace GeometryLogic
 
         public static Vector operator -(Vector first, Vector second)
         {
-            return new Vector(second.X - first.X, second.Y - first.Y);
+            return new Vector(first.X - second.X, first.Y - second.Y);
         }
 
         public static Vector operator +(Vector first, Vector second)
         {
-            return new Vector(second.X + first.X, second.Y + first.Y);
+            return new Vector(first.X + second.X, first.Y + second.Y);
         }
 
         public override bool Equals(object obj)

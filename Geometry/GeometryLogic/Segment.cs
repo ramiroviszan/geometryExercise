@@ -47,59 +47,62 @@ namespace GeometryLogic
             return result;
         }
 
-        public bool DoesIntersect(Segment segment)
+        public bool Intersects(Segment segment)
         {
-            Vector a = segment.end - segment.start;
-            Vector b = start - end;
-            Vector c = segment.start - start;
+            Vector a = end - start;
+            Vector b = segment.start - segment.end;
+            Vector c = start - segment.start;
 
             float alphaNumerator = b.Y * c.X - b.X * c.Y;
             float betaNumerator = a.X * c.Y - a.Y * c.X;
             float denominator = a.Y * b.X - a.X * b.Y;
 
-            bool intersect = denominator != 0;
-            intersect &= NumeratorAgainstDenominatorGreaterThanZero(alphaNumerator, denominator);
-            intersect |= NumeratorAgainstDenominatorNotGreaterThanZero(alphaNumerator, denominator);
-            intersect &= NumeratorAgainstDenominatorGreaterThanZero(betaNumerator, denominator);
-            intersect |= NumeratorAgainstDenominatorNotGreaterThanZero(betaNumerator, denominator);
+            bool intersect = !CheckForCollinearity(denominator);
+            intersect &= CompareNumeratorWithDenominator(alphaNumerator, denominator);
+            intersect &= CompareNumeratorWithDenominator(betaNumerator, denominator);
 
             return intersect;
         }
 
-        private bool NumeratorAgainstDenominatorGreaterThanZero(float numerador, float denominator)
-        {
-            return !(denominator > 0 && (numerador < 0 || numerador > denominator));
-        }
-
-        private bool NumeratorAgainstDenominatorNotGreaterThanZero(float numerador, float denominator)
-        {
-            return !(numerador > 0 || numerador < denominator);
-        }
-
         public Vector GetIntersection(Segment segment)
         {
-            Vector a = segment.end - segment.start;
-            Vector b = start - end;
-            Vector c = segment.start - start;
+            Vector a = end - start;
+            Vector b = segment.start - segment.end;
+            Vector c = start - segment.start;
 
             float alphaNumerator = b.Y * c.X - b.X * c.Y;
             float betaNumerator = a.X * c.Y - a.Y * c.X;
             float denominator = a.Y * b.X - a.X * b.Y;
 
-            bool intersect = denominator != 0;
-            intersect &= NumeratorAgainstDenominatorGreaterThanZero(alphaNumerator, denominator);
-            intersect |= NumeratorAgainstDenominatorNotGreaterThanZero(alphaNumerator, denominator);
-            intersect &= NumeratorAgainstDenominatorGreaterThanZero(betaNumerator, denominator);
-            intersect |= NumeratorAgainstDenominatorNotGreaterThanZero(betaNumerator, denominator);
+            bool intersect = !CheckForCollinearity(denominator);
+            intersect &= CompareNumeratorWithDenominator(alphaNumerator, denominator);
+            intersect &= CompareNumeratorWithDenominator(betaNumerator, denominator);
 
-            if(intersect)
+            if (!intersect)
             {
-                float alphaOfIntersection = alphaNumerator / denominator; 
-                float x = segment.start.X + alphaOfIntersection * (segment.end.X - segment.start.X);
-                float y = segment.start.Y + alphaOfIntersection * (segment.end.Y - segment.start.Y);
-                return new Vector(x, y);
+                throw new SegmentsDoNotIntersectException();
             }
-            throw new SegmentsDoNotIntersectException();
+            return GetIntersectedVector(segment, alphaNumerator, denominator);
         }
+
+        private bool CheckForCollinearity(float denominator)
+        {
+            return denominator == 0;
+        }
+
+        private bool CompareNumeratorWithDenominator(float numerator, float denominator)
+        {
+            float division = numerator / denominator;
+            return division >= 0 && division <= 1;
+        }
+
+        private Vector GetIntersectedVector(Segment segment, float alphaNumerator, float denominator)
+        {
+            float alphaOfIntersection = alphaNumerator / denominator;
+            float x = start.X + alphaOfIntersection * (end.X - start.X);
+            float y = start.Y + alphaOfIntersection * (end.Y - start.Y);
+            return new Vector(x, y);
+        }
+
     }
 }
