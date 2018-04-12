@@ -82,7 +82,7 @@ namespace GeometryLogic
             {
                 throw new SegmentsDoNotIntersectException();
             }
-            return GetIntersectedVector(segment, alphaNumerator, denominator);
+            return GetIntersectedVector(alphaNumerator, denominator);
         }
 
         private bool CheckForCollinearity(float denominator)
@@ -96,7 +96,7 @@ namespace GeometryLogic
             return division >= 0 && division <= 1;
         }
 
-        private Vector GetIntersectedVector(Segment segment, float alphaNumerator, float denominator)
+        private Vector GetIntersectedVector(float alphaNumerator, float denominator)
         {
             float alphaOfIntersection = alphaNumerator / denominator;
             float x = start.X + alphaOfIntersection * (end.X - start.X);
